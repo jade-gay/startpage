@@ -91,7 +91,6 @@ body {
 .section a:hover {
   color: #F07489;
   transform: scale(1.05) translateY(-2px);
-  text-decoration: underline;
 }
 
 /* search container :3 */
