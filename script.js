@@ -297,6 +297,6 @@ window.addEventListener("load", () => {
   animateTitle();
   setTimeout(() => {
     document.addEventListener('keydown', keydownHandler);
-  }, 500);
+  }, 50);
 });
 
