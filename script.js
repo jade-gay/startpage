@@ -26,9 +26,29 @@ let typingQueue = [];
 let processing = false;
 let currentTimer = null;
 let currentChar = null;
+let timerActive = false; 
+let titleInterval; 
+
+function animateTitle() {
+  const titleText = "woof! <3";
+  let i = 0;
+  function typeNext() {
+    if (i <= titleText.length) {
+      document.title = titleText.slice(0, i);
+      i++;
+      setTimeout(typeNext, 100); 
+    }
+  }
+  typeNext();
+}
 
 // keydown handler :3
 function keydownHandler(e) {
+  if (timerActive) {
+    e.preventDefault();
+    return;
+  }
+  
   const isPrintable = e.key.length === 1;
   
   if (!searchActive && isPrintable && !e.ctrlKey && !e.altKey && !e.metaKey) {
@@ -113,6 +133,62 @@ function flushQueue() {
   updateMacroIndicator();
 }
 
+function runTimerCommand(query) {
+  const regex = /^(\d+)\s*(sec(?:ond)?|min(?:ute)?|hr(?:our)?)s?\s+timer$/i;
+  const match = query.match(regex);
+  if (!match) return false;
+  const num = parseInt(match[1], 10);
+  const unit = match[2].toLowerCase();
+  let ms = 0;
+  if (unit.startsWith("min")) {
+    ms = num * 60 * 1000;
+  } else if (unit.startsWith("sec")) {
+    ms = num * 1000;
+  } else if (unit.startsWith("hr")) {
+    ms = num * 60 * 60 * 1000;
+  }
+  
+  timerActive = true;
+  clearInterval(titleInterval); 
+  
+  // clear search display and show timer countdown
+  typedText.innerHTML = "";
+  macroIndicator.textContent = `timer set for ${num} ${unit}`;
+  
+  const endTime = Date.now() + ms;
+  const countdownInterval = setInterval(() => {
+    const remaining = endTime - Date.now();
+    if (remaining <= 0) {
+      clearInterval(countdownInterval);
+      document.getElementById('searchDisplay').textContent = "time's up!";
+      document.title = "time's up! - woof! <3";
+      alert("time's up!");
+      timerActive = false;
+      exitSearch();
+      animateTitle(); 
+    } else {
+      const formatted = formatTime(remaining);
+      document.getElementById('searchDisplay').textContent = formatted;
+      document.title = formatted + " - woof! <3";
+    }
+  }, 1000);
+  return true;
+}
+
+function formatTime(ms) {
+  let totalSeconds = Math.floor(ms / 1000);
+  let seconds = totalSeconds % 60;
+  let minutes = Math.floor(totalSeconds / 60) % 60;
+  let hours = Math.floor(totalSeconds / 3600);
+  if (hours > 0) {
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
+  } else {
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+}
+
 function updateMacroIndicator() {
   const query = typedText.textContent.trim();
   if (query.startsWith("r/")) {
@@ -131,6 +207,12 @@ function updateMacroIndicator() {
 function runSearch() {
   const query = typedText.textContent.trim();
   if (query.length === 0) return;
+  
+  // if timer command, start timer and block input
+  if (runTimerCommand(query)) {
+    return;
+  }
+  
   if (query.startsWith("r/")) {
     const rest = query.substring(2);
     if (rest.includes(":")) {
@@ -172,6 +254,7 @@ function runSearch() {
 }
 
 function exitSearch() {
+  if (timerActive) return;
   searchActive = false;
   searchContainer.style.display = 'none';
   mainContent.style.display = 'flex';
@@ -180,27 +263,14 @@ function exitSearch() {
   }
   macroIndicator.textContent = "";
   typingQueue = [];
+  document.title = "woof! <3";
 }
 
-function animateTitle(string) {
-  document.querySelector('title').innerHTML = "";
-  recursiveAnimateTitle(string);
-}
-
-function recursiveAnimateTitle(string) {
-  if (!string.length) return; // done!
-  let title = document.querySelector('title');
-  title.innerHTML += string[0];
-  setTimeout(() => {
-    recursiveAnimateTitle(string.substring(1));
-  }, 100);
-}
-
-animateTitle("woof! <3");
-
-// add keydown listener after load :3
+// add keydown listener and start title animation after load :3
 window.addEventListener("load", () => {
+  animateTitle();
   setTimeout(() => {
     document.addEventListener('keydown', keydownHandler);
   }, 500);
 });
+
