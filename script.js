@@ -36,14 +36,25 @@ function animateTitle() {
     if (i <= titleText.length) {
       document.title = titleText.slice(0, i);
       i++;
-      setTimeout(typeNext, 100); 
+      setTimeout(typeNext, 100);
     }
   }
   typeNext();
 }
 
+function isURL(query) {
+  const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i;
+  return urlRegex.test(query);
+}
+
 // keydown handler :3
 function keydownHandler(e) {
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    exitSearch();
+    return;
+  }
+  
   if (timerActive) {
     e.preventDefault();
     return;
@@ -55,12 +66,6 @@ function keydownHandler(e) {
     searchActive = true;
     mainContent.style.display = 'none';
     searchContainer.style.display = 'flex';
-  }
-  
-  if (e.key === 'Escape') {
-    e.preventDefault();
-    exitSearch();
-    return;
   }
   
   if (e.key === 'Enter') {
@@ -149,7 +154,7 @@ function runTimerCommand(query) {
   }
   
   timerActive = true;
-  clearInterval(titleInterval); 
+  clearInterval(titleInterval);
   
   // clear search display and show timer countdown
   typedText.innerHTML = "";
@@ -164,8 +169,11 @@ function runTimerCommand(query) {
       document.title = "time's up! - woof! <3";
       alert("time's up!");
       timerActive = false;
-      exitSearch();
-      animateTitle(); 
+      typedText.innerHTML = "";
+      macroIndicator.textContent = "";
+      document.getElementById('searchDisplay').textContent = "";
+      document.title = "woof! <3";
+      animateTitle();
     } else {
       const formatted = formatTime(remaining);
       document.getElementById('searchDisplay').textContent = formatted;
@@ -207,6 +215,15 @@ function updateMacroIndicator() {
 function runSearch() {
   const query = typedText.textContent.trim();
   if (query.length === 0) return;
+  
+  if (isURL(query)) {
+    let url = query;
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "https://" + url;
+    }
+    window.location.href = url;
+    return;
+  }
   
   // if timer command, start timer and block input
   if (runTimerCommand(query)) {
@@ -254,8 +271,11 @@ function runSearch() {
 }
 
 function exitSearch() {
-  if (timerActive) return;
+  if (document.getElementById('searchDisplay').textContent.trim() === "time's up!") {
+    timerActive = false;
+  }
   searchActive = false;
+  timerActive = false;
   searchContainer.style.display = 'none';
   mainContent.style.display = 'flex';
   while (typedText.firstChild) {
@@ -263,7 +283,13 @@ function exitSearch() {
   }
   macroIndicator.textContent = "";
   typingQueue = [];
+  document.getElementById('searchDisplay').textContent = "";
   document.title = "woof! <3";
+}
+
+function isURL(query) {
+  const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i;
+  return urlRegex.test(query);
 }
 
 // add keydown listener and start title animation after load :3
