@@ -32,7 +32,7 @@ body {
 
 /* bottom left image */
 .bottom-left {
-  position:fixed;
+  position: fixed;
   bottom: 0;
   left: 0;
   z-index: 10;
@@ -110,8 +110,11 @@ body {
   text-align: center;
 }
 
-/* search display */
+/* search display using inline-flex for proper alignment */
 #searchDisplay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 3rem;
   font-family: 'Monaspace Neon', monospace;
   color: #C5C8C6;
@@ -121,6 +124,39 @@ body {
   white-space: pre-wrap;
   overflow-wrap: break-word;
   max-width: 90vw;
+}
+
+/* suggestion list dropdown */
+#suggestionList {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  color: #C5C8C6;
+}
+
+.suggestion-item {
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.suggestion-item.selected {
+  background-color: rgba(240, 116, 137, 0.2);
+}
+
+/* blinking cursor */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #F07489;
+  margin-left: 5px;
+  animation: blink 1s infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* animation for chars :3 */
@@ -148,23 +184,6 @@ body {
   animation: floatIn 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* blinking cursor */
-.cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background-color: #F07489;
-  margin-left: 5px;
-  animation: blink 1s infinite;
-  vertical-align: middle;
-}
-
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
 /* macro indicator */
 #macroIndicator {
   margin-top: 20px;
@@ -180,5 +199,10 @@ body {
 
 #macroIndicator:empty {
   display: none;
+}
+
+/* inline suggestion */
+.suggestion-dim {
+  color: #888;
 }
 

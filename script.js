@@ -1,11 +1,13 @@
 const mainContent = document.getElementById('mainContent');
 const searchContainer = document.getElementById('searchContainer');
+const searchDisplay = document.getElementById('searchDisplay');
 const typedText = document.getElementById('typedText');
+const suggestionElement = document.getElementById('suggestion');
+const suggestionListElement = document.getElementById('suggestionList');
 const macroIndicator = document.getElementById('macroIndicator');
 
 const macrosConfig = {
   reddit: "https://reddit.com/",
-  maps: "https://maps.google.com/",
   yt: "https://youtube.com/",
   git: "https://github.com/",
   chatgpt: "https://chatgpt.com/",
@@ -18,7 +20,8 @@ const macrosConfig = {
   kick: "https://kick.com",
   puppyseer: "http://50.lw.itsby.design:5570/",
   dodi: "https://dodi-repacks.site/",
-  hyprland: "https://wiki.hyprland.org/"
+  hyprland: "https://wiki.hyprland.org/",
+  i3wm: "https://i3wm.org/docs/"
 };
 
 let searchActive = false;
@@ -28,6 +31,9 @@ let currentTimer = null;
 let currentChar = null;
 let timerActive = false; 
 let titleInterval; 
+
+let suggestionMatches = [];
+let suggestionSelectedIndex = -1;
 
 function animateTitle() {
   const titleText = "woof! <3";
@@ -47,11 +53,139 @@ function isURL(query) {
   return urlRegex.test(query);
 }
 
-// keydown handler :3
+function getMatchingMacros(query) {
+  let matches = [];
+  for (let key in macrosConfig) {
+    if (key.toLowerCase().startsWith(query.toLowerCase())) {
+      matches.push(key);
+    }
+  }
+  return matches;
+}
+
+function getCommonPrefix(strings) {
+  if (!strings.length) return "";
+  let prefix = strings[0];
+  for (let i = 1; i < strings.length; i++) {
+    while (!strings[i].toLowerCase().startsWith(prefix.toLowerCase())) {
+      prefix = prefix.slice(0, -1);
+      if (prefix === "") return "";
+    }
+  }
+  return prefix;
+}
+
+function updateSuggestion() {
+  const query = typedText.textContent;
+  if (!query) {
+    suggestionElement.textContent = "";
+    suggestionMatches = [];
+    suggestionSelectedIndex = -1;
+    updateSuggestionList([]);
+    return;
+  }
+  suggestionMatches = getMatchingMacros(query);
+  updateSuggestionList(suggestionMatches);
+  if (suggestionMatches.length === 0) {
+    suggestionElement.textContent = "";
+  } else if (suggestionMatches.length === 1) {
+    let full = suggestionMatches[0];
+    if (full.toLowerCase() === query.toLowerCase()) {
+      suggestionElement.textContent = "";
+    } else if (full.length > query.length) {
+      suggestionElement.innerHTML = `<span class="suggestion-dim">${full.slice(query.length)}</span>`;
+    }
+  } else {
+    let common = getCommonPrefix(suggestionMatches);
+    if (common.length > query.length) {
+      suggestionElement.innerHTML = `<span class="suggestion-dim">${common.slice(query.length)}</span>`;
+    } else {
+      suggestionElement.textContent = "";
+    }
+  }
+}
+
+function updateSuggestionList(matches) {
+  suggestionListElement.innerHTML = "";
+  if (matches.length <= 1) {
+    suggestionSelectedIndex = -1;
+    return;
+  }
+  matches.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.textContent = item;
+    div.classList.add('suggestion-item');
+    if (index === suggestionSelectedIndex) {
+      div.classList.add('selected');
+    }
+    suggestionListElement.appendChild(div);
+  });
+}
+
+function updateMacroIndicator() {
+  const query = typedText.textContent.trim();
+  if (query.startsWith("r/")) {
+    macroIndicator.textContent = "reddit search";
+  } else if (query.startsWith("yt/")) {
+    macroIndicator.textContent = "youtube search";
+  } else if (query.startsWith("arch/")) {
+    macroIndicator.textContent = "arch wiki search";
+  } else {
+    macroIndicator.textContent = macrosConfig.hasOwnProperty(query)
+      ? macrosConfig[query]
+      : "";
+  }
+  updateSuggestion();
+}
+
 function keydownHandler(e) {
   if (e.key === 'Escape') {
     e.preventDefault();
     exitSearch();
+    return;
+  }
+  
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (suggestionMatches.length > 1) {
+      suggestionSelectedIndex = (suggestionSelectedIndex + 1) % suggestionMatches.length;
+      updateSuggestionList(suggestionMatches);
+    }
+    return;
+  }
+  if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (suggestionMatches.length > 1) {
+      suggestionSelectedIndex = (suggestionSelectedIndex - 1 + suggestionMatches.length) % suggestionMatches.length;
+      updateSuggestionList(suggestionMatches);
+    }
+    return;
+  }
+  
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    if (suggestionMatches.length > 0) {
+      let fillValue = "";
+      if (suggestionSelectedIndex !== -1 && suggestionMatches[suggestionSelectedIndex]) {
+        fillValue = suggestionMatches[suggestionSelectedIndex];
+      } else {
+        const common = getCommonPrefix(suggestionMatches);
+        fillValue = common.length > typedText.textContent.length ? common : suggestionMatches[0];
+      }
+      typedText.textContent = fillValue;
+      typedText.innerHTML = "";
+      for (let char of fillValue) {
+        let span = document.createElement('span');
+        span.classList.add('char');
+        span.textContent = char;
+        span.style.color = "#C5C8C6";
+        typedText.appendChild(span);
+      }
+      suggestionElement.textContent = "";
+      suggestionMatches = [];
+      suggestionSelectedIndex = -1;
+      updateMacroIndicator();
+    }
     return;
   }
   
@@ -66,10 +200,32 @@ function keydownHandler(e) {
     searchActive = true;
     mainContent.style.display = 'none';
     searchContainer.style.display = 'flex';
+    typedText.innerHTML = "";
+    typedText.style.display = "inline-block";
+    typedText.style.color = "#C5C8C6";
+    typedText.style.opacity = "1";
+    typedText.style.visibility = "visible";
   }
   
   if (e.key === 'Enter') {
     e.preventDefault();
+    if (suggestionMatches.length > 1 && suggestionSelectedIndex !== -1) {
+      const selected = suggestionMatches[suggestionSelectedIndex];
+      typedText.textContent = selected;
+      typedText.innerHTML = "";
+      for (let char of selected) {
+        let span = document.createElement('span');
+        span.classList.add('char');
+        span.textContent = char;
+        span.style.color = "#C5C8C6";
+        typedText.appendChild(span);
+      }
+      suggestionElement.textContent = "";
+      suggestionMatches = [];
+      suggestionSelectedIndex = -1;
+      updateMacroIndicator();
+      return;
+    }
     flushQueue();
     runSearch();
     return;
@@ -102,6 +258,7 @@ function processQueue() {
     const span = document.createElement('span');
     span.classList.add('char');
     span.textContent = char;
+    span.style.color = "#C5C8C6";
     typedText.appendChild(span);
     updateMacroIndicator();
     processing = false;
@@ -120,6 +277,7 @@ function flushQueue() {
       span.textContent = currentChar;
       span.style.opacity = 1;
       span.style.transform = 'translateY(0)';
+      span.style.color = "#C5C8C6";
       typedText.appendChild(span);
     }
     currentTimer = null;
@@ -133,6 +291,7 @@ function flushQueue() {
     span.textContent = char;
     span.style.opacity = 1;
     span.style.transform = 'translateY(0)';
+    span.style.color = "#C5C8C6";
     typedText.appendChild(span);
   }
   updateMacroIndicator();
@@ -156,7 +315,6 @@ function runTimerCommand(query) {
   timerActive = true;
   clearInterval(titleInterval);
   
-  // clear search display and show timer countdown
   typedText.innerHTML = "";
   macroIndicator.textContent = `timer set for ${num} ${unit}`;
   
@@ -171,7 +329,6 @@ function runTimerCommand(query) {
       timerActive = false;
       typedText.innerHTML = "";
       macroIndicator.textContent = "";
-      document.getElementById('searchDisplay').textContent = "";
       document.title = "woof! <3";
       animateTitle();
     } else {
@@ -189,26 +346,9 @@ function formatTime(ms) {
   let minutes = Math.floor(totalSeconds / 60) % 60;
   let hours = Math.floor(totalSeconds / 3600);
   if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds
-      .toString()
-      .padStart(2, '0')}`;
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   } else {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  }
-}
-
-function updateMacroIndicator() {
-  const query = typedText.textContent.trim();
-  if (query.startsWith("r/")) {
-    macroIndicator.textContent = "reddit search";
-  } else if (query.startsWith("yt/")) {
-    macroIndicator.textContent = "youtube search";
-  } else if (query.startsWith("arch/")) {
-    macroIndicator.textContent = "arch wiki search";
-  } else {
-    macroIndicator.textContent = macrosConfig.hasOwnProperty(query)
-      ? macrosConfig[query]
-      : "";
   }
 }
 
@@ -225,7 +365,6 @@ function runSearch() {
     return;
   }
   
-  // if timer command, start timer and block input
   if (runTimerCommand(query)) {
     return;
   }
@@ -278,21 +417,13 @@ function exitSearch() {
   timerActive = false;
   searchContainer.style.display = 'none';
   mainContent.style.display = 'flex';
-  while (typedText.firstChild) {
-    typedText.removeChild(typedText.firstChild);
-  }
+  typedText.innerHTML = "";
+  suggestionElement.innerHTML = "";
   macroIndicator.textContent = "";
   typingQueue = [];
-  document.getElementById('searchDisplay').textContent = "";
   document.title = "woof! <3";
 }
 
-function isURL(query) {
-  const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i;
-  return urlRegex.test(query);
-}
-
-// add keydown listener and start title animation after load :3
 window.addEventListener("load", () => {
   animateTitle();
   setTimeout(() => {
