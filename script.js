@@ -21,7 +21,8 @@ const macrosConfig = {
   puppyseer: "http://50.lw.itsby.design:5570/",
   dodi: "https://dodi-repacks.site/",
   hyprland: "https://wiki.hyprland.org/",
-  i3wm: "https://i3wm.org/docs/"
+  i3wm: "https://i3wm.org/docs/",
+  fantasy: "https://constelia.ai/forums"
 };
 
 let searchActive = false;
