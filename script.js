@@ -22,7 +22,8 @@ const macrosConfig = {
   dodi: "https://dodi-repacks.site/",
   hyprland: "https://wiki.hyprland.org/",
   i3wm: "https://i3wm.org/docs/",
-  fc: "https://constelia.ai/forums"
+  fc: "https://constelia.ai/forums",
+  roli: "https://rolimons.com"
 };
 
 let searchActive = false;
