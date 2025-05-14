@@ -23,7 +23,8 @@ const macrosConfig = {
   hyprland: "https://wiki.hyprland.org/",
   i3wm: "https://i3wm.org/docs/",
   fc: "https://constelia.ai/forums",
-  roli: "https://rolimons.com"
+  roli: "https://rolimons.com",
+  paypal: "https://paypal.com"
 };
 
 let searchActive = false;
