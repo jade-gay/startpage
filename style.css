@@ -41,7 +41,7 @@ body {
 
 /* content box */
 .content-box {
-  border: 2px solid #88C0D0;
+  border: 2px solid #81a1c1;
   padding: 20px 40px;
   text-align: center;
 }
@@ -50,7 +50,7 @@ body {
 .greeting {
   margin: 0;
   margin-bottom: 10px;
-  color: #88C0D0;
+  color: #81a1c1;
   font-size: 2rem;
 }
 
@@ -64,7 +64,7 @@ body {
 
 /* section header */
 .section h2 {
-  color: #88C0D0;
+  color: #81a1c1;
   margin-bottom: 10px;
   font-size: 1.2rem;
   text-transform: lowercase;
@@ -89,7 +89,7 @@ body {
 }
 
 .section a:hover {
-  color: #88C0D0;
+  color: #81a1c1;
   transform: scale(1.05) translateY(-2px);
 }
 
@@ -147,7 +147,7 @@ body {
   display: inline-block;
   width: 2px;
   height: 1em;
-  background-color: #88C0D0;
+  background-color: #81a1c1;
   margin-left: 5px;
   animation: blink 1s infinite;
   vertical-align: middle;
@@ -188,8 +188,8 @@ body {
 #macroIndicator {
   margin-top: 20px;
   font-size: 1.5rem;
-  color: #88C0D0;
-  border: 1px solid #88C0D0;
+  color: #81a1c1;
+  border: 1px solid #81a1c1;
   padding: 4px 8px;
   border-radius: 4px;
   background-color: rgba(136, 192, 208, 0.1);
