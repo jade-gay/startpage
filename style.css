@@ -16,8 +16,8 @@
 body {
   margin: 0;
   padding: 0;
-  background: #2E3440;
-  color: #D8DEE9;
+  background: #24273A; /* base */
+  color: #CAD3F5;       /* text */
   font-family: 'FiraCode Nerd Font', monospace;
 }
 
@@ -41,7 +41,7 @@ body {
 
 /* content box */
 .content-box {
-  border: 2px solid #81a1c1;
+  border: 2px solid #F5BDE6; /* pink */
   padding: 20px 40px;
   text-align: center;
 }
@@ -50,7 +50,7 @@ body {
 .greeting {
   margin: 0;
   margin-bottom: 10px;
-  color: #81a1c1;
+  color: #F5BDE6; /* pink */
   font-size: 2rem;
 }
 
@@ -64,7 +64,7 @@ body {
 
 /* section header */
 .section h2 {
-  color: #81a1c1;
+  color: #F5BDE6;
   margin-bottom: 10px;
   font-size: 1.2rem;
   text-transform: lowercase;
@@ -83,13 +83,13 @@ body {
 /* bookmark links */
 .section a {
   display: inline-block;
-  color: #D8DEE9;
+  color: #CAD3F5;
   text-decoration: none;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .section a:hover {
-  color: #81a1c1;
+  color: #F5BDE6;
   transform: scale(1.05) translateY(-2px);
 }
 
@@ -101,7 +101,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #2E3440;
+  background: #24273A;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -110,14 +110,14 @@ body {
   text-align: center;
 }
 
-/* search display using inline-flex for proper alignment */
+/* search display */
 #searchDisplay {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
   font-family: 'FiraCode Nerd Font', monospace;
-  color: #D8DEE9;
+  color: #CAD3F5;
   width: 100%;
   text-align: center;
   line-height: 1;
@@ -130,7 +130,7 @@ body {
 #suggestionList {
   margin-top: 0.5rem;
   font-size: 1.5rem;
-  color: #D8DEE9;
+  color: #CAD3F5;
 }
 
 .suggestion-item {
@@ -139,7 +139,7 @@ body {
 }
 
 .suggestion-item.selected {
-  background-color: rgba(136, 192, 208, 0.2);
+  background-color: rgba(245, 189, 230, 0.2); /* pink */
 }
 
 /* blinking cursor */
@@ -147,7 +147,7 @@ body {
   display: inline-block;
   width: 2px;
   height: 1em;
-  background-color: #81a1c1;
+  background-color: #F5BDE6;
   margin-left: 5px;
   animation: blink 1s infinite;
   vertical-align: middle;
@@ -188,11 +188,11 @@ body {
 #macroIndicator {
   margin-top: 20px;
   font-size: 1.5rem;
-  color: #81a1c1;
-  border: 1px solid #81a1c1;
+  color: #F5BDE6;
+  border: 1px solid #F5BDE6;
   padding: 4px 8px;
   border-radius: 4px;
-  background-color: rgba(136, 192, 208, 0.1);
+  background-color: rgba(245, 189, 230, 0.1);
   display: inline-block;
   margin-left: 20px;
 }
@@ -203,5 +203,5 @@ body {
 
 /* inline suggestion */
 .suggestion-dim {
-  color: #4C566A;
+  color: #6E738D; /* subtext1 */
 }
