@@ -44,6 +44,7 @@ body {
   border: 2px solid #F5BDE6; /* pink */
   padding: 20px 40px;
   text-align: center;
+  border-radius: 10px;
 }
 
 /* greeting */
