@@ -24,7 +24,8 @@ const macrosConfig = {
   i3wm: "https://i3wm.org/docs/",
   fc: "https://constelia.ai/forums",
   roli: "https://rolimons.com",
-  paypal: "https://paypal.com"
+  paypal: "https://paypal.com",
+  catppuccin: "https://catppuccin.com"
 };
 
 let searchActive = false;
