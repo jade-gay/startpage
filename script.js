@@ -25,7 +25,8 @@ const macrosConfig = {
   fc: "https://constelia.ai/forums",
   roli: "https://rolimons.com",
   paypal: "https://paypal.com",
-  catppuccin: "https://catppuccin.com"
+  catppuccin: "https://catppuccin.com",
+  freecodecamp: "https://www.freecodecamp.org/learn"
 };
 
 let searchActive = false;
