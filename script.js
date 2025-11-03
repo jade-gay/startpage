@@ -26,7 +26,8 @@ const macrosConfig = {
   roli: "https://rolimons.com",
   paypal: "https://paypal.com",
   catppuccin: "https://catppuccin.com",
-  freecodecamp: "https://www.freecodecamp.org/learn"
+  freecodecamp: "https://www.freecodecamp.org/learn",
+  discordpyself: "https://discordpy-self.readthedocs.io"
 };
 
 let searchActive = false;
