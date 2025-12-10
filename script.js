@@ -27,7 +27,8 @@ const macrosConfig = {
   paypal: "https://paypal.com",
   catppuccin: "https://catppuccin.com",
   freecodecamp: "https://www.freecodecamp.org/learn",
-  discordpyself: "https://discordpy-self.readthedocs.io"
+  discordpyself: "https://discordpy-self.readthedocs.io",
+  protonmail: "https://mail.proton.me"
 };
 
 let searchActive = false;
