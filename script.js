@@ -28,7 +28,8 @@ const macrosConfig = {
   catppuccin: "https://catppuccin.com",
   freecodecamp: "https://www.freecodecamp.org/learn",
   discordpyself: "https://discordpy-self.readthedocs.io",
-  protonmail: "https://mail.proton.me"
+  protonmail: "https://mail.proton.me",
+  prolific: "https://prolific.com"
 };
 
 let searchActive = false;
