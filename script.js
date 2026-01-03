@@ -29,7 +29,8 @@ const macrosConfig = {
   freecodecamp: "https://www.freecodecamp.org/learn",
   discordpyself: "https://discordpy-self.readthedocs.io",
   protonmail: "https://mail.proton.me",
-  prolific: "https://app.prolific.com/studies"
+  prolific: "https://app.prolific.com/studies",
+  everviolet: "https://everviolet.xyz",
 };
 
 let searchActive = false;
