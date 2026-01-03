@@ -16,8 +16,8 @@
 body {
   margin: 0;
   padding: 0;
-  background: #B2CFED; /* base */
-  color: #B2CFED;       /* text */
+  background: #24273A; /* base */
+  color: #CAD3F5;       /* text */
   font-family: 'FiraCode Nerd Font', monospace;
 }
 
@@ -41,7 +41,7 @@ body {
 
 /* content box */
 .content-box {
-  border: 2px solid #B2CFED; /* blue */
+  border: 2px solid #F5BDE6; /* pink */
   padding: 20px 40px;
   text-align: center;
   border-radius: 10px;
@@ -51,7 +51,7 @@ body {
 .greeting {
   margin: 0;
   margin-bottom: 10px;
-  color: #B2CFED; /* blue */
+  color: #F5BDE6; /* pink */
   font-size: 2rem;
 }
 
@@ -65,7 +65,7 @@ body {
 
 /* section header */
 .section h2 {
-  color: #B2CFED;
+  color: #F5BDE6;
   margin-bottom: 10px;
   font-size: 1.2rem;
   text-transform: lowercase;
@@ -84,13 +84,13 @@ body {
 /* bookmark links */
 .section a {
   display: inline-block;
-  color: #B2CFED;
+  color: #CAD3F5;
   text-decoration: none;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .section a:hover {
-  color: #B2CFED;
+  color: #F5BDE6;
   transform: scale(1.05) translateY(-2px);
 }
 
@@ -102,7 +102,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #B2CFED;
+  background: #24273A;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -118,7 +118,7 @@ body {
   justify-content: center;
   font-size: 3rem;
   font-family: 'FiraCode Nerd Font', monospace;
-  color: #B2CFED;
+  color: #CAD3F5;
   width: 100%;
   text-align: center;
   line-height: 1;
@@ -140,7 +140,7 @@ body {
 }
 
 .suggestion-item.selected {
-  background-color: #B2CFED;
+  background-color: rgba(245, 189, 230, 0.2); /* pink */
 }
 
 /* blinking cursor */
@@ -148,7 +148,7 @@ body {
   display: inline-block;
   width: 2px;
   height: 1em;
-  background-color: #B2CFED;
+  background-color: #F5BDE6;
   margin-left: 5px;
   animation: blink 1s infinite;
   vertical-align: middle;
@@ -189,8 +189,8 @@ body {
 #macroIndicator {
   margin-top: 20px;
   font-size: 1.5rem;
-  color: #B2CFED;
-  border: 1px solid #B2CFED;
+  color: #F5BDE6;
+  border: 1px solid #F5BDE6;
   padding: 4px 8px;
   border-radius: 4px;
   background-color: rgba(245, 189, 230, 0.1);
@@ -204,5 +204,5 @@ body {
 
 /* inline suggestion */
 .suggestion-dim {
-  color: #B2CFED; /* subtext1 */
+  color: #6E738D; /* subtext1 */
 }
