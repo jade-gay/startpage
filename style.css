@@ -41,7 +41,7 @@ body {
 
 /* content box */
 .content-box {
-  border: 2px solid #B2CFED; /* pink */
+  border: 2px solid #DBDBDB; /* pink */
   padding: 20px 40px;
   text-align: center;
   border-radius: 10px;
@@ -51,7 +51,7 @@ body {
 .greeting {
   margin: 0;
   margin-bottom: 10px;
-  color: #B2CFED; /* pink */
+  color: #DBDBDB; /* pink */
   font-size: 2rem;
 }
 
@@ -65,7 +65,7 @@ body {
 
 /* section header */
 .section h2 {
-  color: #B2CFED;
+  color: #DBDBDB;
   margin-bottom: 10px;
   font-size: 1.2rem;
   text-transform: lowercase;
@@ -90,7 +90,7 @@ body {
 }
 
 .section a:hover {
-  color: #B2CFED;
+  color: #DBDBDB;
   transform: scale(1.05) translateY(-2px);
 }
 
@@ -148,7 +148,7 @@ body {
   display: inline-block;
   width: 2px;
   height: 1em;
-  background-color: #B2CFED;
+  background-color: #DBDBDB;
   margin-left: 5px;
   animation: blink 1s infinite;
   vertical-align: middle;
@@ -189,8 +189,8 @@ body {
 #macroIndicator {
   margin-top: 20px;
   font-size: 1.5rem;
-  color: #B2CFED;
-  border: 1px solid #B2CFED;
+  color: #DBDBDB;
+  border: 1px solid #DBDBDB;
   padding: 4px 8px;
   border-radius: 4px;
   background-color: rgba(245, 189, 230, 0.1);
