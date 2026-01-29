@@ -187,7 +187,7 @@ function keydownHandler(e) {
         let span = document.createElement('span');
         span.classList.add('char');
         span.textContent = char;
-        span.style.color = "#C5C8C6";
+        span.style.color = "var(--wal-foreground)";
         typedText.appendChild(span);
       }
       suggestionElement.textContent = "";
@@ -226,7 +226,7 @@ function keydownHandler(e) {
         let span = document.createElement('span');
         span.classList.add('char');
         span.textContent = char;
-        span.style.color = "#C5C8C6";
+        span.style.color = "var(--wal-foreground)";
         typedText.appendChild(span);
       }
       suggestionElement.textContent = "";
@@ -267,7 +267,7 @@ function processQueue() {
     const span = document.createElement('span');
     span.classList.add('char');
     span.textContent = char;
-    span.style.color = "#C5C8C6";
+    span.style.color = "var(--wal-foreground)";
     typedText.appendChild(span);
     updateMacroIndicator();
     processing = false;
@@ -286,7 +286,7 @@ function flushQueue() {
       span.textContent = currentChar;
       span.style.opacity = 1;
       span.style.transform = 'translateY(0)';
-      span.style.color = "#C5C8C6";
+      span.style.color = "var(--wal-foreground)";
       typedText.appendChild(span);
     }
     currentTimer = null;
@@ -300,7 +300,7 @@ function flushQueue() {
     span.textContent = char;
     span.style.opacity = 1;
     span.style.transform = 'translateY(0)';
-    span.style.color = "#C5C8C6";
+    span.style.color = "var(--wal-foreground)";
     typedText.appendChild(span);
   }
   updateMacroIndicator();
