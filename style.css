@@ -16,9 +16,10 @@
 body {
   margin: 0;
   padding: 0;
-  background: #101010; /* base */
-  color: #DDDDDD;       /* text */
+  background: var(--wal-background, #101010); /* base */
+  color: var(--wal-foreground, #DDDDDD);       /* text */
   font-family: 'FiraCode Nerd Font', monospace;
+  transition: background 0.2s, color 0.2s;
 }
 
 /* main container */
@@ -41,7 +42,7 @@ body {
 
 /* content box */
 .content-box {
-  border: 2px solid #DDDDDD; /* pink */
+  border: 2px solid var(--wal-color1, #DDDDDD); /* pink/accent */
   padding: 20px 40px;
   text-align: center;
   border-radius: 0px;
@@ -51,7 +52,7 @@ body {
 .greeting {
   margin: 0;
   margin-bottom: 10px;
-  color: #DDDDDD; /* pink */
+  color: var(--wal-color1, #DDDDDD); /* pink/accent */
   font-size: 2rem;
 }
 
@@ -65,7 +66,7 @@ body {
 
 /* section header */
 .section h2 {
-  color: #DDDDDD;
+  color: var(--wal-foreground, #DDDDDD);
   margin-bottom: 10px;
   font-size: 1.2rem;
   text-transform: lowercase;
@@ -84,13 +85,13 @@ body {
 /* bookmark links */
 .section a {
   display: inline-block;
-  color: #DDDDDD;
+  color: var(--wal-foreground, #DDDDDD);
   text-decoration: none;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .section a:hover {
-  color: #DDDDDD;
+  color: var(--wal-color2, #DDDDDD);
   transform: scale(1.05) translateY(-2px);
 }
 
@@ -102,7 +103,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #101010;
+  background: var(--wal-background, #101010);
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -118,7 +119,7 @@ body {
   justify-content: center;
   font-size: 3rem;
   font-family: 'FiraCode Nerd Font', monospace;
-  color: #DDDDDD;
+  color: var(--wal-foreground, #DDDDDD);
   width: 100%;
   text-align: center;
   line-height: 1;
@@ -131,7 +132,7 @@ body {
 #suggestionList {
   margin-top: 0.5rem;
   font-size: 1.5rem;
-  color: #DDDDDD;
+  color: var(--wal-foreground, #DDDDDD);
 }
 
 .suggestion-item {
@@ -140,7 +141,8 @@ body {
 }
 
 .suggestion-item.selected {
-  background-color: rgba(245, 189, 230, 0.2); /* pink */
+  background-color: var(--wal-color5, rgba(245, 189, 230, 0.2)); /* pink */
+  color: var(--wal-background, #101010);
 }
 
 /* blinking cursor */
@@ -148,7 +150,7 @@ body {
   display: inline-block;
   width: 2px;
   height: 1em;
-  background-color: #DDDDDD;
+  background-color: var(--wal-foreground, #DDDDDD);
   margin-left: 5px;
   animation: blink 1s infinite;
   vertical-align: middle;
@@ -189,11 +191,11 @@ body {
 #macroIndicator {
   margin-top: 20px;
   font-size: 1.5rem;
-  color: #DDDDDD;
-  border: 1px solid #DDDDDD;
+  color: var(--wal-foreground, #DDDDDD);
+  border: 1px solid var(--wal-foreground, #DDDDDD);
   padding: 4px 8px;
   border-radius: 0px;
-  background-color: rgba(245, 189, 230, 0.1);
+  background-color: var(--wal-color5, rgba(245, 189, 230, 0.1));
   display: inline-block;
   margin-left: 20px;
 }
@@ -204,5 +206,5 @@ body {
 
 /* inline suggestion */
 .suggestion-dim {
-  color: #ADC9BC; /* subtext1 */
+  color: var(--wal-color8, #ADC9BC); /* subtext1 */
 }
