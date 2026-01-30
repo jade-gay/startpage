@@ -45,7 +45,7 @@ body {
   border: 2px solid var(--wal-color1, #DDDDDD); /* pink/accent */
   padding: 20px 40px;
   text-align: center;
-  border-radius: 0px;
+  border-radius: 15px;
 }
 
 /* greeting */
@@ -194,7 +194,7 @@ body {
   color: var(--wal-foreground, #DDDDDD);
   border: 1px solid var(--wal-foreground, #DDDDDD);
   padding: 4px 8px;
-  border-radius: 0px;
+  border-radius: 15px;
   background-color: var(--wal-color5, rgba(245, 189, 230, 0.1));
   display: inline-block;
   margin-left: 20px;
