@@ -31,6 +31,7 @@ const macrosConfig = {
   protonmail: "https://mail.proton.me",
   prolific: "https://app.prolific.com/studies",
   everviolet: "https://everviolet.xyz",
+  claude: "https://claude.ai"
 };
 
 let searchActive = false;
